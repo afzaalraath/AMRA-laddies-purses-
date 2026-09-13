@@ -1,0 +1,1 @@
+Upload ALL files from this folder to the ROOT of the GitHub repository. Do not upload only index.html. Do not put images in another folder.
