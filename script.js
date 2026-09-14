@@ -1,4 +1,28 @@
-const P = [
+import { db, collection, getDocs } from "./firebase.js";
+let P = [];
+async function loadProducts() {
+  try {
+    const snap = await getDocs(collection(db, "products"));
+
+    P = snap.docs.map(d => ({
+      id: d.id,
+      ...d.data()
+    }));
+
+    P = P.map(p => [
+      p.name,
+      Number(p.price),
+      p.image
+    ]);
+
+    products("featured", 4);
+    products("allproducts");
+    render();
+
+  } catch (error) {
+    console.error("Firebase error:", error);
+  }
+}
   ['Amber Chain Tote', 2000, 'amber-chain-tote.jpg'],
   ['Burgundy Bloom Tote', 2000, 'burgundy-floral-tote.jpg'],
   ['Monochrome Icon Tote', 2000, 'monochrome-classic-tote.jpg'],
